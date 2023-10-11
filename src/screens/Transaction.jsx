@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { View, Text, StatusBar } from 'react-native';
+import { View, Text, StatusBar, ScrollView } from 'react-native';
 import { StyleSheet, ImageBackground } from 'react-native';
 import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native';
@@ -24,6 +24,84 @@ const uploadIcon = require("../../assets/upload.png");
 const buyIcon = require("../../assets/buy.png");
 const tradeIcon = require("../../assets/newtrade.png");
 const transactionImage = require("../../assets/transaction.png");
+
+const transactionList = [
+    {
+        date: "Sep 12, 2023",
+        from: '0x205630af...190ded',
+        amount: 60
+    },
+    {
+        date: "Apr 19, 2022",
+        from: '0x122055f...400ded',
+        amount: 306
+    },
+    {
+        date: "Oct 9, 2022",
+        from: '0x204073de...970ded',
+        amount: 194
+    },
+    {
+        date: "Sep 12, 2023",
+        from: '0x205630af...190ded',
+        amount: 60
+    },
+    {
+        date: "Apr 19, 2022",
+        from: '0x122055f...400ded',
+        amount: 306
+    },
+    {
+        date: "Oct 9, 2022",
+        from: '0x204073de...970ded',
+        amount: 194
+    },
+    {
+        date: "Sep 12, 2023",
+        from: '0x205630af...190ded',
+        amount: 60
+    },
+    {
+        date: "Apr 19, 2022",
+        from: '0x122055f...400ded',
+        amount: 306
+    },
+    {
+        date: "Oct 9, 2022",
+        from: '0x204073de...970ded',
+        amount: 194
+    },
+    {
+        date: "Sep 12, 2023",
+        from: '0x205630af...190ded',
+        amount: 60
+    },
+    {
+        date: "Apr 19, 2022",
+        from: '0x122055f...400ded',
+        amount: 306
+    },
+    {
+        date: "Oct 9, 2022",
+        from: '0x204073de...970ded',
+        amount: 194
+    },
+    {
+        date: "Sep 12, 2023",
+        from: '0x205630af...190ded',
+        amount: 60
+    },
+    {
+        date: "Apr 19, 2022",
+        from: '0x122055f...400ded',
+        amount: 306
+    },
+    {
+        date: "Oct 9, 2022",
+        from: '0x204073de...970ded',
+        amount: 194
+    },
+]
 
 export default function Transaction({ navigation }) {
     return (
@@ -126,10 +204,46 @@ export default function Transaction({ navigation }) {
             >
             </LinearGradient>
 
-            <Image source={transactionImage} style={{ marginVertical: hp('4%') }} />
-            <Text style={{ color: 'white', fontSize: 19 }}>Transactions will appear here</Text>
-
-
+            {transactionList.length !== 0 ?
+                <ScrollView
+                    style={{ width: wp('100%'), height: hp('2%'), overflow: 'scroll' }}
+                >
+                    <View style={styles.transactionList}>
+                        {
+                            transactionList.map((transactionItem, index) =>
+                                <TouchableOpacity
+                                    onPress={() => navigation.navigate("TransactionDetail")}
+                                    style={{ flexDirection: 'column', width: wp('100%'), alignItems: 'flex-start', marginTop: 10, paddingLeft: wp('6%'), paddingRight: wp('6%'), gap: 10 }}>
+                                    <View>
+                                        <Text style={{ color: 'white', fontSize: 12 }}>{transactionItem.date}</Text>
+                                    </View>
+                                    <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: hp('1%') }}>
+                                        <View style={{ width: wp('65%'), flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                                            <View
+                                                style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: 'gray', width: 40, height: 40, borderRadius: 40 }}
+                                            >
+                                                <View style={styles.innerCircle}>
+                                                    <Image source={downloadIcon} />
+                                                </View>
+                                            </View>
+                                            <View style={{ flexDirection: 'column', gap: 1 }}>
+                                                <Text style={{ color: 'white', fontSize: 14 }}>Transfer</Text>
+                                                <Text style={{ color: 'gray', fontSize: 12 }}>From: {transactionItem.from}</Text>
+                                            </View>
+                                        </View>
+                                        <Text style={{ fontSize: 17, color: '#D98F26' }}>+{transactionItem.amount} USDT</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )
+                        }
+                    </View>
+                </ScrollView>
+                :
+                <View style={{ flexDirection: "column", justifyContent: 'center', alignItems: 'center' }}>
+                    <Image source={transactionImage} style={{ marginVertical: hp('4%') }} />
+                    <Text style={{ color: 'white', fontSize: 19 }}>Transactions will appear here</Text>
+                </View>
+            }
             <View style={styles.bottomNav}>
                 <TouchableOpacity style={styles.tabItem}>
                     <Image source={BeeIcon} style={{ width: 30, height: 30 }} />
@@ -191,7 +305,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: wp('5%'),
         alignItems: 'flex-end',
-        paddingBottom: 10
+        paddingBottom: 10,
+        backgroundColor: 'black'
     },
     tabItem: {
         flexDirection: 'column',
@@ -213,5 +328,10 @@ const styles = StyleSheet.create({
         marginTop: hp('2%'),
         marginBottom: hp('3.2%'),
         overflow: 'scroll',
+    },
+    transactionList: {
+        width: wp('100%'),
+        flexDirection: 'column',
+        alignItems: 'center',
     }
 });
